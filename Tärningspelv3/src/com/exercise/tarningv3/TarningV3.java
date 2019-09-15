@@ -10,8 +10,11 @@ public class TarningV3 {
         int antalSidor = 6;
         int antalSpelare;
         int table[][] = new int[100][100];
+        int datorSlag[] = new int[100];
         int spelarPoang[] = new int[100];
+        int highScore[] = new int[100];
         String spelaIgen;
+        String datorVal;
 
         System.out.println(" _______ _   _  _____  _   _ _____ _   _  _____  _____ _____  ______ _      _ ");
         System.out.println("|__   __(_)_(_)|  __ \\| \\ | |_   _| \\ | |/ ____|/ ____|  __ \\|  ____| |    | |");
@@ -27,9 +30,22 @@ public class TarningV3 {
             antalSpelare = scan.nextInt();
             scan.nextLine();
 
+            System.out.println("Vill ni lägga till en dator? (y/n)");
+            datorVal = scan.nextLine();
+
             System.out.println("Välj antal kast.");
             antalKast = scan.nextInt();
             scan.nextLine();
+
+            if (datorVal.equalsIgnoreCase("y")){
+                for (int i = 1; i <= antalKast; i++){
+                    datorSlag[i] = kast(antalSidor);
+                    System.out.println("Dator kast " + i + " Poäng " + datorSlag[i]);
+                }
+
+            }else;
+
+            System.out.println(" ");
 
             for (int i = 1; i <= antalSpelare; i++) {
                 for (int j = 1; j <= antalKast; j++) {
@@ -43,6 +59,12 @@ public class TarningV3 {
             //Tänker en loop som går igenom hela table[1][1 till antalSpelare]
             //Så att varje spelare får en egen del i 1d arrayen.
             //loopar, arrayer eller kanske en egen metod?
+            int datorPoang = 0;
+
+            for (int i = 1; i <= antalKast; i++){
+                datorPoang += datorSlag[i];
+            }
+            System.out.println("Datorns totalpoäng: " + datorPoang);
 
             for (int n = 1; n <= antalSpelare; n++){
                 for (int i = 1; i <= antalKast; i++){
@@ -56,9 +78,13 @@ public class TarningV3 {
                     max = spelarPoang[i];
                 }
             }
-            for(int i = 0; i <= antalSpelare; i++) {
-                if (spelarPoang[i] == max) {
-                    System.out.println("\nVinnaren är spelare " + i + " med: " + max + " poäng!");
+            if (datorPoang > max){
+                System.out.println("\nVinnaren är datorn med: " + datorPoang);
+            }else {
+                for (int i = 0; i <= antalSpelare; i++) {
+                    if (spelarPoang[i] == max) {
+                        System.out.println("\nVinnaren är spelare " + i + " med: " + max + " poäng!");
+                    }
                 }
             }
 
